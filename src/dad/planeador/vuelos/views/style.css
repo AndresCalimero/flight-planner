@@ -1,0 +1,25 @@
+Mapa {
+    -fx-background-color: #666970;
+}
+Mapa > ToolBar, Mapa > ToolBar > Button, Mapa > ToolBar > ToggleButton, Mapa > ToolBar > Label {
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+}
+Mapa > ToolBar {
+    -fx-base: #505359;
+    -fx-background: #505359;
+    -fx-shadow-highlight-color: transparent;
+    -fx-spacing: 5;
+    -fx-padding: 4 4 4 4;
+    -fx-background-color: linear-gradient(#666970 0%, #494d53 66%, #3c3f46 100%)
+}
+
+TextField:disabled {
+	-fx-opacity: 0.5;
+}
+
+.invalido {
+	-fx-opacity: 0.9;
+	-fx-background-color: rgb(255, 62, 62);
+	-fx-text-fill: white;
+}

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import dad.planeador.vuelos.components.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dad.planeador.vuelos.views.RootController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Planes">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onNuevoPlanMenuItemActionPerformed" text="Nuevo plan" />
+              <MenuItem mnemonicParsing="false" onAction="#onAbrirPlanMenuItemActionPerformed" text="Abrir plan..." />
+                  <MenuItem mnemonicParsing="false" onAction="#onGuardarPlanMenuItemActionPerformed" text="Guardar plan" />
+                  <MenuItem fx:id="eliminarPlanMenuItem" disable="true" mnemonicParsing="false" onAction="#onEliminarPlanMenuItemActionPerformed" text="Eliminar plan" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Aviones">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#onGestionarAvionesMenuItemActionPerformed" text="Gestionar aviones..." />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Mapa">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onRefrescarMapaMenuItemActionPerformed" text="Refrescar mapa" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.4290484140233723" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane>
+               <children>
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <content>
+                        <VBox spacing="5.0">
+                           <children>
+                              <TitledPane text="Vuelo">
+                                 <content>
+                                    <ScrollPane fitToWidth="true" vbarPolicy="NEVER">
+                                       <content>
+                                          <GridPane hgap="5.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" />
+                                              <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints vgrow="SOMETIMES" />
+                                              <RowConstraints vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="Numero de vuelo" />
+                                                <TextField fx:id="numeroVueloTextField" maxWidth="1.7976931348623157E308" minWidth="100.0" promptText="AER-XXXX" GridPane.rowIndex="1" />
+                                                <Label text="Origen" GridPane.columnIndex="1" />
+                                                <Label text="Destino" GridPane.columnIndex="2" />
+                                                <Label text="Pista despegue" GridPane.columnIndex="3" />
+                                                <Label text="Pista aterrizaje" GridPane.columnIndex="4" />
+                                                <HBox maxWidth="1.7976931348623157E308" spacing="2.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <TextField fx:id="origenTextField" editable="false" maxWidth="1.7976931348623157E308" minWidth="63.0" HBox.hgrow="ALWAYS" />
+                                                      <Button minWidth="25.0" mnemonicParsing="false" onAction="#onSeleccionarAeropuertoOrigenButtonActionPerformed" text="...">
+                                                         <tooltip>
+                                                            <Tooltip text="Seleccionar aeropuerto" />
+                                                         </tooltip>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                                <HBox maxWidth="1.7976931348623157E308" spacing="2.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <TextField fx:id="destinoTextField" editable="false" maxWidth="1.7976931348623157E308" minWidth="63.0" HBox.hgrow="ALWAYS" />
+                                                      <Button minWidth="25.0" mnemonicParsing="false" onAction="#onSeleccionarAeropuertoDestinoButtonActionPerformed" text="...">
+                                                         <tooltip>
+                                                            <Tooltip text="Seleccionar aeropuerto" />
+                                                         </tooltip>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                                <ComboBox fx:id="pistaDespegueComboBox" maxWidth="1.7976931348623157E308" minWidth="90.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                                <ComboBox fx:id="pistaAterrizajeComboBox" maxWidth="1.7976931348623157E308" minWidth="90.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                             </children>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets bottom="20.0" left="8.0" right="8.0" top="10.0" />
+                                             </padding>
+                                          </GridPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                              </TitledPane>
+                            <TitledPane text="Avión">
+                                 <content>
+                                    <ScrollPane fitToWidth="true" vbarPolicy="NEVER">
+                                       <content>
+                                          <GridPane hgap="5.0">
+                                             <children>
+                                                <Label text="Avión (nº registro)" />
+                                                <Label text="Tipo" GridPane.columnIndex="1" />
+                                                <Label text="DOW" GridPane.columnIndex="2">
+                                                   <tooltip>
+                                                      <Tooltip text="Peso vacio" />
+                                                   </tooltip></Label>
+                                                <Label text="MZFW" GridPane.columnIndex="3">
+                                                   <tooltip>
+                                                      <Tooltip text="Peso maximo sin combustible" />
+                                                   </tooltip></Label>
+                                                <Label text="MTOW" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                   <tooltip>
+                                                      <Tooltip text="Peso maximo de despegue" />
+                                                   </tooltip></Label>
+                                                <ComboBox fx:id="avionComboBox" maxWidth="1.7976931348623157E308" minWidth="152.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                                <TextField fx:id="tipoAvionTextField" disable="true" editable="false" maxWidth="1.7976931348623157E308" minWidth="153.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                                <TextField fx:id="dowTextField" disable="true" editable="false" maxWidth="1.7976931348623157E308" minWidth="80.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                                <TextField fx:id="mzfwTextField" disable="true" editable="false" maxWidth="1.7976931348623157E308" minWidth="80.0" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                                <TextField fx:id="mtowTextField" disable="true" editable="false" maxWidth="1.7976931348623157E308" minWidth="80.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                                                <Label text="MLW" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                                   <tooltip>
+                                                      <Tooltip text="Peso maximo de aterrizaje" />
+                                                   </tooltip></Label>
+                                                <TextField fx:id="mlwTextField" disable="true" editable="false" maxWidth="1.7976931348623157E308" minWidth="80.0" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                                                <Label text="Observaciones" GridPane.rowIndex="2" />
+                                                <TextField fx:id="observacionesTextField" maxWidth="1.7976931348623157E308" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                             </columnConstraints>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets bottom="20.0" left="8.0" right="8.0" top="10.0" />
+                                             </padding>
+                                             <rowConstraints>
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                                <RowConstraints />
+                                                <RowConstraints />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                              </TitledPane>
+                            <TitledPane text="Carga">
+                                 <content>
+                                    <ScrollPane fitToWidth="true" vbarPolicy="NEVER">
+                                       <content>
+                                          <GridPane hgap="5.0">
+                                             <children>
+                                                <Label text="Adultos" />
+                                                <NumberTextField fx:id="adultosTextField" alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="45.0" GridPane.rowIndex="1" />
+                                                <Label text="Niños" GridPane.columnIndex="1" />
+                                                <Label text="Bebes" GridPane.columnIndex="2" />
+                                                <Label text="Max Pax" GridPane.columnIndex="3" />
+                                                <Label text="Equipaje" GridPane.columnIndex="4" />
+                                                <NumberTextField fx:id="ninosTextField" alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <NumberTextField fx:id="bebesTextField" alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                <TextField fx:id="maxPaxTextField" alignment="CENTER" disable="true" editable="false" maxWidth="1.7976931348623157E308" minWidth="45.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                                <NumberTextField fx:id="equipajeTextField" maxWidth="1.7976931348623157E308" minWidth="90.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                                   <tooltip>
+                                                      <Tooltip text="Equipaje en Kg" />
+                                                   </tooltip></NumberTextField>
+                                                <NumberTextField fx:id="cargaTextField" maxWidth="1.7976931348623157E308" minWidth="90.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                                   <tooltip>
+                                                      <Tooltip text="Carga en Kg" />
+                                                   </tooltip></NumberTextField>
+                                                <Label text="Carga" GridPane.columnIndex="5" />
+                                                <Label text="ZF" GridPane.columnIndex="6">
+                                                   <tooltip>
+                                                      <Tooltip text="Peso actual sin combustible" />
+                                                   </tooltip></Label>
+                                                <TextField fx:id="zfTextField" disable="true" editable="false" maxWidth="1.7976931348623157E308" minWidth="90.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                             </columnConstraints>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets bottom="20.0" left="8.0" right="8.0" top="10.0" />
+                                             </padding>
+                                             <rowConstraints>
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane text="Ruta">
+                                 <content>
+                                    <ScrollPane fitToWidth="true" vbarPolicy="NEVER">
+                                       <content>
+                                          <GridPane hgap="5.0">
+                                             <children>
+                                                <Label text="Ruta ATC" GridPane.rowIndex="3" />
+                                                <TextArea fx:id="rutaTextArea" maxWidth="1.7976931348623157E308" minWidth="480.0" prefHeight="80.0" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                                                <Label text="Altitud de crucero" />
+                                                <ComboBox fx:id="altitudComboBox" prefWidth="120.0" GridPane.rowIndex="1" />
+                                                <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Region GridPane.columnIndex="1" GridPane.rowIndex="1" HBox.Hgrow="always" />
+                                                      <Button mnemonicParsing="false" onAction="#onValidarRutaActionPerformed" text="Validar ruta" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                             </columnConstraints>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets bottom="20.0" left="8.0" right="8.0" top="10.0" />
+                                             </padding>
+                                             <rowConstraints>
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                              </TitledPane>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children></AnchorPane>
+          <AnchorPane>
+               <children>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <center>
+                        <Mapa fx:id="mapa" />
+                     </center>
+                  </BorderPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </center>
+   <bottom>
+      <StatusBar fx:id="statusBar" />
+   </bottom>
+</BorderPane>

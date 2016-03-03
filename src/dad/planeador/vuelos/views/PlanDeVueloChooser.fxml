@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dad.planeador.vuelos.views.PlanDeVueloChooserController">
+   <center>
+      <TableView fx:id="planesDeVueloTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <columns>
+            <TableColumn fx:id="numeroVueloTableColumn" prefWidth="75.0" text="Numero vuelo" />
+            <TableColumn fx:id="avionTableColumn" prefWidth="75.0" text="Avion" />
+            <TableColumn fx:id="origenTableColumn" prefWidth="75.0" text="Origen" />
+            <TableColumn fx:id="destinoTableColumn" prefWidth="75.0" text="Destino" />
+         </columns>
+      </TableView>
+   </center>
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Buscar:" />
+            <TextField fx:id="buscarTextField" prefWidth="200.0" />
+            <Region HBox.Hgrow="always" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#onAbrirButtonActionPerformed" text="Abrir" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#onCancelarButtonActionPerformed" text="Cancelar" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+</BorderPane>

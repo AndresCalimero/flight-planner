@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="CENTER_LEFT" prefWidth="600.0" spacing="5.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="estadoLabel" text="Estado" />
+      <Region HBox.Hgrow="always" />
+      <StackPane fx:id="stackPane">
+         <children>
+            <ProgressBar fx:id="progressBar" prefWidth="100.0" progress="0.0" />
+            <Label fx:id="porcentajeLabel" text="0%">
+               <StackPane.margin>
+                  <Insets bottom="1.0" />
+               </StackPane.margin>
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
+         </children>
+      </StackPane>
+   </children>
+   <padding>
+      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+   </padding>
+</fx:root>
