@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="300.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dad.planeador.vuelos.views.GestionarAvionesController">
+   <center>
+      <TableView fx:id="avionesTableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="numeroRegistroTableColumn" text="Número registro" />
+          <TableColumn fx:id="tipoTableColumn" minWidth="100.0" prefWidth="150.0" text="Tipo" />
+            <TableColumn fx:id="maxPaxTableColumn" prefWidth="20.0" text="Max Pax" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </center>
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Buscar:" />
+            <TextField fx:id="buscarTextField" />
+            <Region HBox.Hgrow="always" />
+            <Button mnemonicParsing="false" onAction="#onTiposButtonActionPerformed" text="Tipos..." />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#onNuevoButtonActionPerformed" text="Nuevo" />
+            <Button fx:id="editarButton" disable="true" mnemonicParsing="false" onAction="#onEditarButtonActionPerformed" text="Editar" />
+            <Button fx:id="eliminarButton" disable="true" mnemonicParsing="false" onAction="#onEliminarButtonActionPerformed" text="Eliminar" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+</BorderPane>

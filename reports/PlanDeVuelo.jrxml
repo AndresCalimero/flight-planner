@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2016-03-04T19:39:26 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanDeVuelo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2023f649-3a07-4d9f-a755-6e4f43a66102">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PlanDeVueloItemAdapter"/>
+	<parameter name="PESO_BEBE" class="java.lang.Integer" isForPrompting="false">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="PESO_NINO" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="PESO_ADULTO" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="numeroBebes" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroBebes]]></fieldDescription>
+	</field>
+	<field name="aeropuertoOrigen" class="dad.planeador.vuelos.models.Aeropuerto">
+		<fieldDescription><![CDATA[aeropuertoOrigen]]></fieldDescription>
+	</field>
+	<field name="pistaAterrizaje" class="dad.planeador.vuelos.models.Pista">
+		<fieldDescription><![CDATA[pistaAterrizaje]]></fieldDescription>
+	</field>
+	<field name="numeroChildren" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroChildren]]></fieldDescription>
+	</field>
+	<field name="pistaDespegue" class="dad.planeador.vuelos.models.Pista">
+		<fieldDescription><![CDATA[pistaDespegue]]></fieldDescription>
+	</field>
+	<field name="altitudCrucero" class="java.lang.Integer">
+		<fieldDescription><![CDATA[altitudCrucero]]></fieldDescription>
+	</field>
+	<field name="puntos" class="java.util.List">
+		<fieldDescription><![CDATA[puntos]]></fieldDescription>
+	</field>
+	<field name="carga" class="java.lang.Integer">
+		<fieldDescription><![CDATA[carga]]></fieldDescription>
+	</field>
+	<field name="numeroAdultos" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroAdultos]]></fieldDescription>
+	</field>
+	<field name="equipaje" class="java.lang.Integer">
+		<fieldDescription><![CDATA[equipaje]]></fieldDescription>
+	</field>
+	<field name="aeropuertoDestino" class="dad.planeador.vuelos.models.Aeropuerto">
+		<fieldDescription><![CDATA[aeropuertoDestino]]></fieldDescription>
+	</field>
+	<field name="observacionesAvion" class="java.lang.String">
+		<fieldDescription><![CDATA[observacionesAvion]]></fieldDescription>
+	</field>
+	<field name="avion" class="dad.planeador.vuelos.models.Avion">
+		<fieldDescription><![CDATA[avion]]></fieldDescription>
+	</field>
+	<field name="rutaATC" class="java.lang.String">
+		<fieldDescription><![CDATA[rutaATC]]></fieldDescription>
+	</field>
+	<field name="numeroVuelo" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroVuelo]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="739" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<break>
+				<reportElement x="0" y="735" width="555" height="1" uuid="bb31270e-3896-4756-af18-cba7964694d5">
+					<property name="com.jaspersoft.layout.grid.x" value="0"/>
+					<property name="com.jaspersoft.layout.grid.y" value="3"/>
+					<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.weight.fixed" value="true"/>
+				</reportElement>
+			</break>
+			<staticText>
+				<reportElement x="0" y="257" width="555" height="48" uuid="4c737812-08b0-4e6b-95d3-3d973b8fe42e">
+					<property name="com.jaspersoft.layout.grid.x" value="0"/>
+					<property name="com.jaspersoft.layout.grid.y" value="0"/>
+					<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.weight.y" value="2.0"/>
+					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="25" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PLAN DE VUELO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="311" width="555" height="36" uuid="acbaeaea-5b5c-4c8e-95df-187602fcfb6a">
+					<property name="com.jaspersoft.layout.grid.x" value="0"/>
+					<property name="com.jaspersoft.layout.grid.y" value="1"/>
+					<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="28" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroVuelo}.toUpperCase() + " " + $F{aeropuertoOrigen}.getIcao() + "-" + $F{aeropuertoDestino}.getIcao()]]></textFieldExpression>
+			</textField>
+			<textField pattern="d MMMM yyyy">
+				<reportElement x="0" y="352" width="555" height="27" forecolor="#7D7D7D" uuid="8ec15330-aa1a-44df-98e4-e32bc090fa3e">
+					<property name="com.jaspersoft.layout.grid.x" value="0"/>
+					<property name="com.jaspersoft.layout.grid.y" value="2"/>
+					<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.weight.y" value="1.5"/>
+					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="21" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="480" width="554" height="208" uuid="a0c10f3e-ef22-41e6-a2d1-ec1db3fa5eb4"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aeropuertoOrigen}.getNombre() + "\n-\n" + $F{aeropuertoDestino}.getNombre()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="4" width="555" height="17" uuid="21c820e7-2c2f-4264-a753-fca3d18d5585">
+					<property name="com.jaspersoft.layout.grid.x" value="0"/>
+					<property name="com.jaspersoft.layout.grid.y" value="1"/>
+					<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroVuelo}.toUpperCase() + " " + $F{aeropuertoOrigen}.getIcao() + "-" + $F{aeropuertoDestino}.getIcao() + " (" + new SimpleDateFormat("d MMMM yyyy").format(new java.util.Date()) + ")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="336" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="288" width="555" height="48" uuid="9d89ffb6-d770-425a-8aa9-1f3e7f005470"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{puntos})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["reports/PuntosSubreport.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="4" width="555" height="16" uuid="522f97e3-aae9-4c5a-9558-4517375ee599"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[TODOS LOS PESOS EN KILOGRAMOS (KG)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="9c3208bb-366c-417d-acb6-df770dcdfabe">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="0" y="3" width="555" height="1" uuid="8df90b51-0af2-41f9-98af-ae6372211e58">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
+			<frame>
+				<reportElement x="28" y="28" width="232" height="160" uuid="f065a75e-957c-4e0d-9b90-138facd4f768"/>
+				<staticText>
+					<reportElement x="0" y="0" width="232" height="20" uuid="8bb6a5f2-bd60-4e13-8069-40f0420e196a"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[AVIÓN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="20" width="86" height="14" uuid="b765899d-d6fc-4614-9f8b-03b31bef9bef">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nº REGISTRO]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="20" width="146" height="14" uuid="caf1ae71-386c-409a-afab-59de7f41a80c"/>
+					<textFieldExpression><![CDATA[$F{avion}.getNumeroRegistro()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="34" width="86" height="14" uuid="799a79b3-7148-488b-8bee-36fb9d5aa2b8">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[TIPO]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="34" width="146" height="14" uuid="38569d37-3add-4d36-91e8-53cc4a3ab634"/>
+					<textFieldExpression><![CDATA[$F{avion}.getTipoAvion().getTipo()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="48" width="86" height="14" uuid="99557804-2205-4b48-96ee-f3fbf4fb1706">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[COMB. APU/H]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="48" width="146" height="14" uuid="162b513b-7e60-47d2-b562-4d4d9a529605"/>
+					<textFieldExpression><![CDATA[String.format("%,d", $F{avion}.getConsumoAPUHora()) + " kg"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="62" width="86" height="14" uuid="7827cd62-8955-4ddf-a782-4be72c945818">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[CARGA MAX.]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="62" width="146" height="14" uuid="fbce76ad-b3f9-47a0-8316-cf90d8ff6591"/>
+					<textFieldExpression><![CDATA[String.format("%,d", $F{avion}.getCarga()) + " kg"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="76" width="86" height="14" uuid="ed23063e-d041-420b-855f-8804dc16eaa2">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[COMB. MAX.]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="76" width="146" height="14" uuid="523c83cd-747b-44b5-bb8e-e51737090640"/>
+					<textFieldExpression><![CDATA[String.format("%,d", $F{avion}.getCombustible()) + " kg"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="90" width="86" height="14" uuid="11d137e0-d175-4308-b1ad-3d541a165413">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[PAX. MAX.]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="90" width="146" height="14" uuid="762de77d-ceeb-4f29-8c74-d9d44e9754ec"/>
+					<textFieldExpression><![CDATA[$F{avion}.getPasajeros()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="104" width="86" height="14" uuid="3f6cda8c-cc58-434b-8fcc-e9e99fa2bae0">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[DOW]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="104" width="146" height="14" uuid="2aa8acb5-e003-4f95-a1c4-a039a969ce6b"/>
+					<textFieldExpression><![CDATA[String.format("%,d", $F{avion}.getDow()) + " kg"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="118" width="86" height="14" uuid="b129e78e-ba29-4f76-b1b5-6e933210c814">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[MZFW]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="118" width="146" height="14" uuid="eae1c12b-aea8-49ee-8ae4-c45a1a2f2d61"/>
+					<textFieldExpression><![CDATA[String.format("%,d", $F{avion}.getMzfw()) + " kg"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="132" width="86" height="14" uuid="0bd48cb3-0ba4-4980-9e23-f02020128864">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[MTOW]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="132" width="146" height="14" uuid="8c59d22b-82b7-4e65-a31c-10731ed70033"/>
+					<textFieldExpression><![CDATA[String.format("%,d", $F{avion}.getMtow()) + " kg"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="146" width="86" height="14" uuid="f24ef814-35cb-4814-a427-792b36d9b95e">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[MLW]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="146" width="146" height="14" uuid="27b7df1c-dabc-4dc7-8433-6935e46b957d"/>
+					<textFieldExpression><![CDATA[String.format("%,d", $F{avion}.getMlw()) + " kg"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="28" y="196" width="232" height="76" uuid="a1a8b0b4-02ce-4891-8a73-53515ec4adcb"/>
+				<textField>
+					<reportElement x="86" y="20" width="146" height="14" uuid="d003fe12-fd0f-4224-ba18-d5205e99ed3b"/>
+					<textFieldExpression><![CDATA[$F{numeroBebes}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="232" height="20" uuid="98781d51-fded-4290-981d-009dc609c4dd"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[PASAJEROS]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="34" width="146" height="14" uuid="6d1fb6df-6be1-4a52-943c-faba975d366d"/>
+					<textFieldExpression><![CDATA[$F{numeroChildren}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="20" width="86" height="14" uuid="ff884255-fafd-46d5-a150-086443b4b412">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[BEBES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="34" width="86" height="14" uuid="421f5962-36a4-48a9-bc26-9ed0422a8876">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[NIÑOS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="48" width="86" height="14" uuid="3c2a7196-a782-4118-aa61-fa944b8836d7">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[ADULTOS]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="48" width="146" height="14" uuid="61c137b6-e1f1-45c0-81ff-99ed2dadefad"/>
+					<textFieldExpression><![CDATA[$F{numeroAdultos}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="62" width="86" height="14" uuid="93f0b783-b34e-403f-8406-4ab7197c147d">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="62" width="146" height="14" uuid="a5110e73-be1c-490b-b7ea-e48dd8de222e"/>
+					<textFieldExpression><![CDATA[($F{numeroAdultos} + $F{numeroBebes} + $F{numeroChildren})]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="300" y="196" width="232" height="76" uuid="d934f1b0-798f-41f6-ab8c-de3fdaa604e1"/>
+				<textField>
+					<reportElement x="86" y="20" width="146" height="14" uuid="2e9ab44e-6848-4466-b23c-534ffa4a4c27"/>
+					<textFieldExpression><![CDATA[String.format("%,d", $F{carga}) + " kg"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="232" height="20" uuid="d24cdd3d-ca94-4f51-82d7-f2bf1ef59608"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[PESOS]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="34" width="146" height="14" uuid="11a80f26-ded8-42c7-8295-86b657ad6462"/>
+					<textFieldExpression><![CDATA[String.format("%,d", $F{equipaje}) + " kg"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="20" width="86" height="14" uuid="013c58a6-cf1d-4fe0-b798-fd06a0603a27">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[CARGA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="34" width="86" height="14" uuid="349b8a09-0f0e-4800-aa1b-539973e29c49">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[EQUIPAJE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="62" width="86" height="14" uuid="b35e1859-929e-4323-9cbc-1519be786b06">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="62" width="146" height="14" uuid="4d6c3058-e3dd-486b-bb35-228f7e9877df"/>
+					<textFieldExpression><![CDATA[String.format("%,d", (($F{numeroAdultos} * $P{PESO_ADULTO}) + ($F{numeroBebes} * $P{PESO_BEBE}) + ($F{numeroChildren} * $P{PESO_NINO}) + $F{carga} + $F{equipaje})) + " kg"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="48" width="86" height="14" uuid="adda134c-8699-46e4-81bc-67cd606b11fb">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[PASAJEROS]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="48" width="146" height="14" uuid="0fe7e1aa-7209-4e52-8d77-423ba353fb61"/>
+					<textFieldExpression><![CDATA[String.format("%,d", (($F{numeroAdultos} * $P{PESO_ADULTO}) + ($F{numeroBebes} * $P{PESO_BEBE}) + ($F{numeroChildren} * $P{PESO_NINO}))) + " kg"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="300" y="28" width="232" height="160" uuid="2aad01ad-f792-48a4-b28c-d313f318d0f9"/>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="0" width="232" height="20" uuid="47c45c89-8750-4664-ac3e-bc60b5db9baf">
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					</reportElement>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[PLAN]]></text>
+				</staticText>
+				<frame>
+					<reportElement positionType="Float" x="0" y="62" width="232" height="14" uuid="3f86065a-55fa-4b50-b739-42b284053d8a"/>
+					<textField isStretchWithOverflow="true">
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="86" y="0" width="146" height="14" uuid="4b536268-8353-41ef-ac3b-c09b19fef6a8"/>
+						<textFieldExpression><![CDATA[$F{observacionesAvion}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="86" height="14" uuid="048960c7-2d78-49a0-b7b7-0cd6ef5f9918">
+							<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						</reportElement>
+						<box topPadding="1" leftPadding="5"/>
+						<textElement verticalAlignment="Top">
+							<font isBold="true"/>
+						</textElement>
+						<text><![CDATA[OBSER.]]></text>
+					</staticText>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" x="0" y="76" width="232" height="14" uuid="ca32999d-48a7-4f4b-ac5f-942bc15b76bf"/>
+					<staticText>
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="86" height="14" uuid="f4ba9e41-cd65-4521-a6a4-02704e4aabfb">
+							<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						</reportElement>
+						<box topPadding="1" leftPadding="5"/>
+						<textElement verticalAlignment="Top">
+							<font isBold="true"/>
+						</textElement>
+						<text><![CDATA[RUTA ATC]]></text>
+					</staticText>
+					<textField isStretchWithOverflow="true">
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="86" y="0" width="146" height="14" uuid="d0fcbb59-ac0b-4b15-88da-0563c670a061"/>
+						<box leftPadding="0"/>
+						<textElement verticalAlignment="Top"/>
+						<textFieldExpression><![CDATA[$F{rutaATC}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" x="0" y="20" width="232" height="14" uuid="b6d7621b-dd76-44fa-810b-0e73b65bdcd9"/>
+					<textField>
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="86" y="0" width="146" height="14" uuid="2b553cd4-bdd5-4de3-b5ca-fc07bb4b005b"/>
+						<textFieldExpression><![CDATA[$F{aeropuertoOrigen}.getIcao() + "  " + $F{pistaDespegue}.getPista()]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="86" height="14" uuid="457a3374-9691-45d6-a0bb-244e87bb0433">
+							<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						</reportElement>
+						<box leftPadding="5"/>
+						<textElement verticalAlignment="Middle">
+							<font isBold="true"/>
+						</textElement>
+						<text><![CDATA[SALIDA]]></text>
+					</staticText>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" x="0" y="34" width="232" height="14" uuid="69d29ee4-8d54-4b30-8936-29f06143efb9"/>
+					<staticText>
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="86" height="14" uuid="91cfa2e3-b3a1-436a-9cd8-5a753d409002">
+							<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						</reportElement>
+						<box leftPadding="5"/>
+						<textElement verticalAlignment="Middle">
+							<font isBold="true"/>
+						</textElement>
+						<text><![CDATA[LLEGADA]]></text>
+					</staticText>
+					<textField>
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="86" y="0" width="146" height="14" uuid="54d9132f-9625-4c72-bbe3-4c562d2eb6af"/>
+						<textFieldExpression><![CDATA[$F{aeropuertoDestino}.getIcao() + "  " + $F{pistaAterrizaje}.getPista()]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" x="0" y="48" width="232" height="14" uuid="c7825719-3430-420d-a9a9-f7ce80048c01"/>
+					<staticText>
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="86" height="14" uuid="4d2ecd19-41bc-44e6-b3ae-e93937742a0a">
+							<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						</reportElement>
+						<box leftPadding="5"/>
+						<textElement verticalAlignment="Middle">
+							<font isBold="true"/>
+						</textElement>
+						<text><![CDATA[ALT. CRUCERO]]></text>
+					</staticText>
+					<textField>
+						<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="86" y="0" width="146" height="14" uuid="e3d442a4-ddbf-4b50-87e9-06f2b70527be"/>
+						<textFieldExpression><![CDATA["FL" + String.valueOf($F{altitudCrucero}).substring(0, 3)]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement positionType="Float" x="180" y="0" width="100" height="17" uuid="0c5f10fa-4274-4990-9789-46c49f5b0b65"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["Página " + ($V{PAGE_NUMBER} - 1)]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement positionType="Float" x="280" y="0" width="100" height="17" uuid="9bca0a70-a43d-4646-8131-28c171a0f3ae"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[" de " + ($V{PAGE_NUMBER} - 1)]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

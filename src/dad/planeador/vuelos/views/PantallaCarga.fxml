@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="345.0" prefWidth="700.0" style="-fx-background-color: rgba(255, 255, 255, 0);" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="dad.planeador.vuelos.views.PantallaCargaController">
+   <children>
+      <ImageView fitHeight="345.0" fitWidth="700.0" layoutX="55.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../images/nube.png" />
+         </image>
+      </ImageView>
+      <ProgressIndicator layoutX="264.0" layoutY="91.0" prefHeight="163.0" prefWidth="173.0" />
+      <ImageView fitHeight="123.0" fitWidth="152.0" layoutX="171.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/icon.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
