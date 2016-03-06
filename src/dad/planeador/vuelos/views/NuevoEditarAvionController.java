@@ -3,9 +3,11 @@ package dad.planeador.vuelos.views;
 import java.util.List;
 
 import dad.planeador.vuelos.components.NumberTextField;
+import dad.planeador.vuelos.dialogs.ExceptionAlert;
 import dad.planeador.vuelos.models.Avion;
 import dad.planeador.vuelos.models.TipoAvion;
 import dad.planeador.vuelos.services.PlaneadorVuelosService;
+import dad.planeador.vuelos.services.PlaneadorVuelosServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -145,7 +147,18 @@ public class NuevoEditarAvionController extends Controller {
 			avion.setMtow(mtow);
 			avion.setMzfw(mzfw);
 			avion.setPasajeros(pasajeros);
-			PlaneadorVuelosService.guardarAvion(avion);
+			try {
+				PlaneadorVuelosService.guardarAvion(avion);
+			} catch (PlaneadorVuelosServiceException e) {
+				ExceptionAlert alert = new ExceptionAlert(AlertType.ERROR);
+				alert.setTitle("Error al intentar guardar el avión");
+				alert.setHeaderText("Hubo un error al intentar guardar el avión!");
+				alert.setContentText(e.getMessage());
+				alert.setExpandableLabelText("El error fue:");
+				alert.setException(e);
+				alert.initOwner(getStage());
+				alert.showAndWait();
+			}
 			getStage().close();
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);

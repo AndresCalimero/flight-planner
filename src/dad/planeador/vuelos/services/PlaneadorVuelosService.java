@@ -26,43 +26,44 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class PlaneadorVuelosService {
-	
+
 	private static DatabaseConnection db;
-	
+
 	// Key: ICAO
 	private static final Map<String, Aeropuerto> AEROPUERTOS = new HashMap<>();
 	private static final ObservableList<Aeropuerto> LISTA_AEROPUERTOS = FXCollections.observableArrayList();
-	
+
 	// Key: Hash code
 	private static final Map<Integer, Interseccion> INTERSECCIONES = new HashMap<>();
 	private static final ObservableList<Interseccion> LISTA_INTERSECCIONES = FXCollections.observableArrayList();
-	
+
 	// Key: Codigo
 	private static final Map<Long, TipoNavaid> TIPOS_NAVAIDS = new HashMap<>();
 	private static final ObservableList<TipoNavaid> LISTA_TIPOS_NAVAIDS = FXCollections.observableArrayList();
-	
+
 	// Key: Hash code
 	private static final Map<Integer, Navaid> NAVAIDS = new HashMap<>();
 	private static final ObservableList<Navaid> LISTA_NAVAIDS = FXCollections.observableArrayList();
-	
+
 	// Key: Codigo
 	private static final Map<Long, TipoAvion> TIPOS_AVION = new HashMap<>();
 	private static final ObservableList<TipoAvion> LISTA_TIPOS_AVION = FXCollections.observableArrayList();
-	
+
 	// Key: Numero registro
 	private static final Map<String, Avion> AVIONES = new HashMap<>();
 	private static final ObservableList<Avion> LISTA_AVIONES = FXCollections.observableArrayList();
-	
+
 	// Key: Identificador
 	private static final Map<String, Aerovia> AEROVIAS = new HashMap<>();
 	private static final ObservableList<Aerovia> LISTA_AEROVIAS = FXCollections.observableArrayList();
-	
+
 	// Key: Codigo
 	private static final Map<Long, PlanDeVuelo> PLANES_DE_VUELO = new HashMap<>();
 	private static final ObservableList<PlanDeVuelo> LISTA_PLANES_DE_VUELO = FXCollections.observableArrayList();
-	
-	private PlaneadorVuelosService() {}
-	
+
+	private PlaneadorVuelosService() {
+	}
+
 	public static void cargarDatos() {
 		ConnectionConfig cc = new ConnectionConfig(DatabaseConnection.DB_SQLITE);
 		cc.setFile(new File("resources/planeadorvuelosdb.sqlite3"));
@@ -78,11 +79,10 @@ public class PlaneadorVuelosService {
 			cargarPlanesDeVuelo();
 			generarListasObservables();
 		} catch (DatabaseConnectionException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void cargarAeropuertos() throws SQLException {
 		ResultSet rs = db.query("SELECT icao, nombre, grados_norte, grados_este FROM aeropuertos");
 		while (rs.next()) {
@@ -95,9 +95,10 @@ public class PlaneadorVuelosService {
 			AEROPUERTOS.put(aeropuerto.getIcao(), aeropuerto);
 		}
 	}
-	
+
 	private static void cargarPistas(Aeropuerto aeropuerto) throws SQLException {
-		ResultSet rs = db.query("SELECT pista, grados_norte, grados_este FROM pistas WHERE icao = ?", aeropuerto.getIcao());
+		ResultSet rs = db.query("SELECT pista, grados_norte, grados_este FROM pistas WHERE icao = ?",
+				aeropuerto.getIcao());
 		while (rs.next()) {
 			Pista pista = new Pista();
 			pista.setIcao(aeropuerto.getIcao());
@@ -107,7 +108,7 @@ public class PlaneadorVuelosService {
 			aeropuerto.getPistas().add(pista);
 		}
 	}
-	
+
 	private static void cargarIntersecciones() throws SQLException {
 		ResultSet rs = db.query("SELECT codigo, identificador, grados_norte, grados_este FROM intersecciones");
 		while (rs.next()) {
@@ -120,7 +121,7 @@ public class PlaneadorVuelosService {
 			INTERSECCIONES.put(interseccion.hashCode(), interseccion);
 		}
 	}
-	
+
 	private static void cargarTiposNavaids() throws SQLException {
 		ResultSet rs = db.query("SELECT codigo, tipo FROM tipos_navaid");
 		while (rs.next()) {
@@ -130,22 +131,28 @@ public class PlaneadorVuelosService {
 			TIPOS_NAVAIDS.put(tipoNavaid.getCodigo(), tipoNavaid);
 		}
 	}
-	
+
 	private static void cargarNavaids() throws SQLException {
 		ResultSet rs = db.query("SELECT * FROM navaids");
 		while (rs.next()) {
 			Navaid navaid = new Navaid();
 			navaid.setCodigo(rs.getLong("codigo"));
+			navaid.setNombre(rs.getString("nombre"));
 			navaid.setTipo(Punto.TIPO_NAVAID);
 			navaid.setTipoNavaid(TIPOS_NAVAIDS.get(rs.getLong("tipo")));
 			navaid.setIdentificador(rs.getString("identificador"));
-			navaid.setFrecuencia("" + rs.getInt("frecuencia"));
+			int frecuencia = rs.getInt("frecuencia");
+			if (frecuencia != 0) {
+				String frecuenciaS = frecuencia + "";
+				frecuenciaS = frecuenciaS.substring(0, 3) + "." + frecuenciaS.substring(3);
+				navaid.setFrecuencia(frecuenciaS);
+			}
 			navaid.getCoordenadas().setGradosNorte(rs.getDouble("grados_norte"));
 			navaid.getCoordenadas().setGradosEste(rs.getDouble("grados_este"));
 			NAVAIDS.put(navaid.hashCode(), navaid);
 		}
 	}
-	
+
 	private static void cargarTiposAvion() throws SQLException {
 		ResultSet rs = db.query("SELECT codigo, tipo FROM tipos_avion");
 		while (rs.next()) {
@@ -155,7 +162,7 @@ public class PlaneadorVuelosService {
 			TIPOS_AVION.put(tipoAvion.getCodigo(), tipoAvion);
 		}
 	}
-	
+
 	private static void cargarAviones() throws SQLException {
 		ResultSet rs = db.query("SELECT * FROM aviones");
 		while (rs.next()) {
@@ -173,7 +180,7 @@ public class PlaneadorVuelosService {
 			AVIONES.put(avion.getNumeroRegistro(), avion);
 		}
 	}
-	
+
 	private static void cargarAerovias() throws SQLException {
 		ResultSet rs = db.query("SELECT * FROM aerovias ORDER BY identificador, orden ASC");
 		Aerovia ultima = null;
@@ -197,23 +204,26 @@ public class PlaneadorVuelosService {
 			}
 		}
 	}
-	
+
 	private static void agregarInterseccionAerovia(long codigoInterseccion, Aerovia aerovia) throws SQLException {
 		Coordenadas coordenadas = new Coordenadas();
-		ResultSet rs = db.query("SELECT identificador, grados_norte, grados_este FROM intersecciones WHERE codigo = ?", codigoInterseccion);
+		ResultSet rs = db.query("SELECT identificador, grados_norte, grados_este FROM intersecciones WHERE codigo = ?",
+				codigoInterseccion);
 		coordenadas.setGradosNorte(rs.getDouble("grados_norte"));
-		coordenadas.setGradosEste(rs.getDouble("grados_este"));		
-		aerovia.getPuntos().add(INTERSECCIONES.get(Punto.generateHashCode(codigoInterseccion, Punto.TIPO_INTERSECCION)));
+		coordenadas.setGradosEste(rs.getDouble("grados_este"));
+		aerovia.getPuntos()
+				.add(INTERSECCIONES.get(Punto.generateHashCode(codigoInterseccion, Punto.TIPO_INTERSECCION)));
 	}
-	
+
 	private static void agregarNavaidAerovia(long codigoNavaid, Aerovia aerovia) throws SQLException {
 		Coordenadas coordenadas = new Coordenadas();
-		ResultSet rs = db.query("SELECT identificador, grados_norte, grados_este FROM navaids WHERE codigo = ?", codigoNavaid);
+		ResultSet rs = db.query("SELECT identificador, grados_norte, grados_este FROM navaids WHERE codigo = ?",
+				codigoNavaid);
 		coordenadas.setGradosNorte(rs.getDouble("grados_norte"));
 		coordenadas.setGradosEste(rs.getDouble("grados_este"));
 		aerovia.getPuntos().add(NAVAIDS.get(Punto.generateHashCode(codigoNavaid, Punto.TIPO_NAVAID)));
 	}
-	
+
 	private static void cargarPlanesDeVuelo() throws SQLException {
 		ResultSet rs = db.query("SELECT * FROM planes_vuelo");
 		while (rs.next()) {
@@ -250,7 +260,7 @@ public class PlaneadorVuelosService {
 			PLANES_DE_VUELO.put(planDeVuelo.getCodigo(), planDeVuelo);
 		}
 	}
-	
+
 	private static void generarListasObservables() {
 		LISTA_AEROPUERTOS.addAll(AEROPUERTOS.values());
 		LISTA_AEROVIAS.addAll(AEROVIAS.values());
@@ -261,17 +271,33 @@ public class PlaneadorVuelosService {
 		LISTA_TIPOS_AVION.addAll(TIPOS_AVION.values());
 		LISTA_TIPOS_NAVAIDS.addAll(TIPOS_NAVAIDS.values());
 	}
-	
-	public static void guardarAvion(Avion avion) {
+
+	public static void guardarAvion(Avion avion) throws PlaneadorVuelosServiceException {
 		if (LISTA_AVIONES.contains(avion)) {
-			// TODO modificar en la base de datos
+			try {
+				db.update(
+						"UPDATE aviones SET tipo = ?, dow = ?, mzfw = ?, mtow = ?, mlw = ?, pasajeros = ?, carga = ?, combustible = ?, consumo_apu_hora = ? WHERE num_registro = ?",
+						avion.getTipoAvion().getCodigo(), avion.getDow(), avion.getMzfw(), avion.getMtow(),
+						avion.getMlw(), avion.getPasajeros(), avion.getCarga(), avion.getCombustible(),
+						avion.getConsumoAPUHora(), avion.getNumeroRegistro());
+			} catch (SQLException e) {
+				throw new PlaneadorVuelosServiceException(e.getMessage(), e);
+			}
 		} else {
 			LISTA_AVIONES.add(avion);
-			// TODO añadir en la base de datos
+			try {
+				db.insert(
+						"INSERT INTO aviones(tipo, dow, mzfw, mtow, mlw, pasajeros, carga, combustible, consumo_apu_hora, num_registro) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+						avion.getTipoAvion().getCodigo(), avion.getDow(), avion.getMzfw(), avion.getMtow(),
+						avion.getMlw(), avion.getPasajeros(), avion.getCarga(), avion.getCombustible(),
+						avion.getConsumoAPUHora(), avion.getNumeroRegistro());
+			} catch (SQLException e) {
+				throw new PlaneadorVuelosServiceException(e.getMessage(), e);
+			}
 		}
 	}
-	
-	public static void eliminarAvion(Avion avion) {
+
+	public static void eliminarAvion(Avion avion) throws PlaneadorVuelosServiceException {
 		if (LISTA_AVIONES.contains(avion)) {
 			for (PlanDeVuelo plan : LISTA_PLANES_DE_VUELO) {
 				if (avion.equals(plan.getAvion())) {
@@ -280,20 +306,34 @@ public class PlaneadorVuelosService {
 				}
 			}
 			LISTA_AVIONES.remove(avion);
-			// TODO eliminar de la base de datos
+			try {
+				db.update("DELETE FROM aviones WHERE num_registro = ?", avion.getNumeroRegistro());
+			} catch (SQLException e) {
+				throw new PlaneadorVuelosServiceException(e.getMessage(), e);
+			}
 		}
 	}
-	
-	public static void guardarTipoAvion(TipoAvion tipo) {
+
+	public static void guardarTipoAvion(TipoAvion tipo) throws PlaneadorVuelosServiceException {
 		if (LISTA_TIPOS_AVION.contains(tipo)) {
-			// TODO modificar en la base de datos
+			try {
+				db.update("UPDATE tipos_avion SET tipo = ? WHERE codigo = ?", tipo.getTipo(), tipo.getCodigo());
+			} catch (SQLException e) {
+				throw new PlaneadorVuelosServiceException(e.getMessage(), e);
+			}
 		} else {
 			LISTA_TIPOS_AVION.add(tipo);
-			// TODO añadir en la base de datos
+			try {
+				ResultSet rs = db.insert("INSERT INTO tipos_avion(tipo) VALUES(?)", tipo.getTipo());
+				rs.next();
+				tipo.setCodigo(rs.getLong(1));
+			} catch (SQLException e) {
+				throw new PlaneadorVuelosServiceException(e.getMessage(), e);
+			}
 		}
 	}
-	
-	public static void eliminarTipoAvion(TipoAvion tipo) {
+
+	public static void eliminarTipoAvion(TipoAvion tipo) throws PlaneadorVuelosServiceException {
 		if (LISTA_TIPOS_AVION.contains(tipo)) {
 			List<Avion> aviones = new ArrayList<>(LISTA_AVIONES);
 			for (Avion avion : aviones) {
@@ -301,25 +341,65 @@ public class PlaneadorVuelosService {
 					eliminarAvion(avion);
 				}
 			}
-			
+
 			LISTA_TIPOS_AVION.remove(tipo);
-			// TODO eliminar tipo de la base de datos
+			try {
+				db.update("DELETE FROM tipos_avion WHERE codigo = ?", tipo.getCodigo());
+			} catch (SQLException e) {
+				throw new PlaneadorVuelosServiceException(e.getMessage(), e);
+			}
 		}
 	}
-	
-	public static void guardarPlanDeVuelo(PlanDeVuelo plan) {
+
+	public static void guardarPlanDeVuelo(PlanDeVuelo plan) throws PlaneadorVuelosServiceException {
 		if (LISTA_PLANES_DE_VUELO.contains(plan)) {
-			// TODO modificar en la base de datos
+			try {
+				db.update(
+						"UPDATE planes_vuelo SET avion = ?, aeropuerto_origen = ?, aeropuerto_destino = ?, altitud_crucero = ?, ruta_atc = ?, numero_vuelo = ?, pista_despegue = ?, pista_aterrizaje = ?, observaciones_avion = ?, numero_adultos = ?, numero_ninos = ?, numero_bebes = ?, equipaje = ?, carga = ? WHERE codigo = ?",
+						(plan.getAvion() != null ? plan.getAvion().getNumeroRegistro() : null),
+						plan.getAeropuertoOrigen().getIcao(), plan.getAeropuertoDestino().getIcao(),
+						plan.getAltitudCrucero(), plan.getRutaATC(), plan.getNumeroVuelo(),
+						(plan.getPistaDespegue() != null ? plan.getPistaDespegue().getPista() : null),
+						(plan.getPistaAterrizaje() != null ? plan.getPistaAterrizaje().getPista() : null),
+						plan.getObservacionesAvion(), (plan.getNumeroAdultos() == 0 ? null : plan.getNumeroAdultos()),
+						(plan.getNumeroChildren() == 0 ? null : plan.getNumeroChildren()),
+						(plan.getNumeroBebes() == 0 ? null : plan.getNumeroBebes()),
+						(plan.getEquipaje() == 0 ? null : plan.getEquipaje()),
+						(plan.getCarga() == 0 ? null : plan.getCarga()), plan.getCodigo());
+			} catch (SQLException e) {
+				throw new PlaneadorVuelosServiceException(e.getMessage(), e);
+			}
 		} else {
 			LISTA_PLANES_DE_VUELO.add(plan);
-			// TODO añadir en la base de datos
+			try {
+				ResultSet rs = db.insert(
+						"INSERT INTO planes_vuelo(avion, aeropuerto_origen, aeropuerto_destino, altitud_crucero, ruta_atc, numero_vuelo, pista_despegue, pista_aterrizaje, observaciones_avion, numero_adultos, numero_ninos, numero_bebes, equipaje, carga) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+						(plan.getAvion() != null ? plan.getAvion().getNumeroRegistro() : null),
+						plan.getAeropuertoOrigen().getIcao(), plan.getAeropuertoDestino().getIcao(),
+						plan.getAltitudCrucero(), plan.getRutaATC(), plan.getNumeroVuelo(),
+						(plan.getPistaDespegue() != null ? plan.getPistaDespegue().getPista() : null),
+						(plan.getPistaAterrizaje() != null ? plan.getPistaAterrizaje().getPista() : null),
+						plan.getObservacionesAvion(), (plan.getNumeroAdultos() == 0 ? null : plan.getNumeroAdultos()),
+						(plan.getNumeroChildren() == 0 ? null : plan.getNumeroChildren()),
+						(plan.getNumeroBebes() == 0 ? null : plan.getNumeroBebes()),
+						(plan.getEquipaje() == 0 ? null : plan.getEquipaje()),
+						(plan.getCarga() == 0 ? null : plan.getCarga()));
+				rs.next();
+				plan.setCodigo(rs.getLong(1));
+			} catch (SQLException e) {
+				throw new PlaneadorVuelosServiceException(e.getMessage(), e);
+			}
 		}
 	}
-	
-	public static void eliminarPlanDeVuelo(PlanDeVuelo plan) {
+
+	public static void eliminarPlanDeVuelo(PlanDeVuelo plan) throws PlaneadorVuelosServiceException {
 		if (LISTA_PLANES_DE_VUELO.contains(plan)) {
 			LISTA_PLANES_DE_VUELO.remove(plan);
-			// TODO eliminar de la base de datos
+			try {
+				db.update("DELETE FROM planes_vuelo WHERE codigo = ?", plan.getCodigo());
+			} catch (SQLException e) {
+				throw new PlaneadorVuelosServiceException(e.getMessage(), e);
+			}
 		}
 	}
 
@@ -354,5 +434,5 @@ public class PlaneadorVuelosService {
 	public static ObservableList<PlanDeVuelo> getListaPlanesDeVuelo() {
 		return LISTA_PLANES_DE_VUELO;
 	}
-	
+
 }

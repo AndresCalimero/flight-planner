@@ -2,8 +2,10 @@ package dad.planeador.vuelos.views;
 
 import java.util.Optional;
 
+import dad.planeador.vuelos.dialogs.ExceptionAlert;
 import dad.planeador.vuelos.models.TipoAvion;
 import dad.planeador.vuelos.services.PlaneadorVuelosService;
+import dad.planeador.vuelos.services.PlaneadorVuelosServiceException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -55,7 +57,18 @@ public class GestionarTiposController extends Controller {
 		alert.setContentText("Esta operación no se podrá deshacer, se eliminaran todos los aviones de ese tipo.");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
-			PlaneadorVuelosService.eliminarTipoAvion(tipoSeleccionado);
+			try {
+				PlaneadorVuelosService.eliminarTipoAvion(tipoSeleccionado);
+			} catch (PlaneadorVuelosServiceException e) {
+				ExceptionAlert exAlert = new ExceptionAlert(AlertType.ERROR);
+				exAlert.setTitle("Error al intentar eliminar el tipo de avión");
+				exAlert.setHeaderText("Hubo un error al intentar eliminar el tipo de avión!");
+				exAlert.setContentText(e.getMessage());
+				exAlert.setExpandableLabelText("El error fue:");
+				exAlert.setException(e);
+				exAlert.initOwner(getStage());
+				exAlert.showAndWait();
+			}
 		}
 	}
 	

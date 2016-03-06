@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.input.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import dad.planeador.vuelos.components.*?>
@@ -15,20 +16,44 @@
         <menus>
           <Menu mnemonicParsing="false" text="Planes">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#onNuevoPlanMenuItemActionPerformed" text="Nuevo plan" />
-              <MenuItem mnemonicParsing="false" onAction="#onAbrirPlanMenuItemActionPerformed" text="Abrir plan..." />
-                  <MenuItem mnemonicParsing="false" onAction="#onGuardarPlanMenuItemActionPerformed" text="Guardar plan" />
-                  <MenuItem fx:id="eliminarPlanMenuItem" disable="true" mnemonicParsing="false" onAction="#onEliminarPlanMenuItemActionPerformed" text="Eliminar plan" />
+                  <MenuItem mnemonicParsing="false" onAction="#onNuevoPlanMenuItemActionPerformed" text="Nuevo plan">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+              <MenuItem mnemonicParsing="false" onAction="#onAbrirPlanMenuItemActionPerformed" text="Abrir plan...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#onGuardarPlanMenuItemActionPerformed" text="Guardar plan">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem fx:id="eliminarPlanMenuItem" disable="true" mnemonicParsing="false" onAction="#onEliminarPlanMenuItemActionPerformed" text="Eliminar plan">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#onExportarPlanMenuItemActionPerformed" text="Guardar y exportar plan...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Aviones">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#onGestionarAvionesMenuItemActionPerformed" text="Gestionar aviones..." />
+              <MenuItem mnemonicParsing="false" onAction="#onGestionarAvionesMenuItemActionPerformed" text="Gestionar aviones...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Mapa">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#onRefrescarMapaMenuItemActionPerformed" text="Refrescar mapa" />
+                <MenuItem mnemonicParsing="false" onAction="#onRefrescarMapaMenuItemActionPerformed" text="Refrescar mapa">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F5" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
               </items>
             </Menu>
         </menus>
@@ -261,11 +286,7 @@
                </children></AnchorPane>
           <AnchorPane>
                <children>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <center>
-                        <Mapa fx:id="mapa" />
-                     </center>
-                  </BorderPane>
+                  <BorderPane fx:id="mapaBorderPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>

@@ -2,6 +2,7 @@ package dad.planeador.vuelos;
 
 import java.io.IOException;
 
+import dad.planeador.vuelos.components.Mapa;
 import dad.planeador.vuelos.images.Imagenes;
 import dad.planeador.vuelos.models.Avion;
 import dad.planeador.vuelos.models.TipoAvion;
@@ -24,6 +25,7 @@ import javafx.stage.StageStyle;
 public class MainApp extends Application {
 	
 	public static final String TITULO_VENTANA = "Planeador de Vuelos";
+	private Mapa mapa;
 	private Stage primaryStage;
 	private Stage planeadorVuelo;
 	private Stage gestionAviones;
@@ -210,5 +212,13 @@ public class MainApp extends Application {
 	
 	public void showNuevoTipo() {
 		showEditarTipo(null);
+	}
+
+	public Mapa getMapa() {
+		return mapa;
+	}
+
+	public void setMapa(Mapa mapa) {
+		this.mapa = mapa;
 	}
 }

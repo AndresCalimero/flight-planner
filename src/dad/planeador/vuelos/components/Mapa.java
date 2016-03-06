@@ -1,21 +1,27 @@
 package dad.planeador.vuelos.components;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import dad.planeador.vuelos.MainApp;
 import dad.planeador.vuelos.models.Aeropuerto;
+import dad.planeador.vuelos.models.Coordenadas;
 import dad.planeador.vuelos.models.Interseccion;
+import dad.planeador.vuelos.models.Localizable;
+import dad.planeador.vuelos.models.Navaid;
+import dad.planeador.vuelos.models.Punto;
 import dad.planeador.vuelos.views.RootController.Puente;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
 import netscape.javascript.JSObject;
@@ -29,13 +35,8 @@ public class Mapa extends BorderPane {
 	@FXML
 	private ToggleButton navaidsToggleButton;
 	@FXML
-	private ToggleButton aeroviasToggleButton;
-	@FXML
-	private TextField buscarTextField;
-	@FXML
 	private WebView webView;
 
-	private Puente puente;
 	private WebEngine webEngine;
 	private Callback<Boolean, ?> callback;
 	private ChangeListener<State> changeListener;
@@ -59,18 +60,29 @@ public class Mapa extends BorderPane {
 		interseccionesToggleButton.selectedProperty().addListener((obs, oldValue, newValue) -> {
 			onInterseccionesToggleButtonSelectedChanged(newValue);
 		});
+		navaidsToggleButton.selectedProperty().addListener((obs, oldValue, newValue) -> {
+			onNavaidsToggleButtonSelectedChanged(newValue);
+		});
 		changeListener = new ChangeListener<State>() {
 			@Override
 			public void changed(ObservableValue<? extends State> observable, State oldValue, State newValue) {
 				if (newValue == State.SUCCEEDED) {
-					webEngine.getLoadWorker().stateProperty().removeListener(this);
+					webView.getEngine().getLoadWorker().stateProperty().removeListener(this);
 					callback.call(true);
 				} else if (newValue == State.CANCELLED || newValue == State.FAILED) {
-					webEngine.getLoadWorker().stateProperty().removeListener(this);
+					webView.getEngine().getLoadWorker().stateProperty().removeListener(this);
 					callback.call(false);
 				}
 			}
 		};
+
+		// DEBUG
+		webView.getEngine().setOnAlert(new EventHandler<WebEvent<String>>() {
+			@Override
+			public void handle(WebEvent<String> event) {
+				System.out.println(event.getData());
+			}
+		});
 	}
 
 	private void onAeropuertosToggleButtonSelectedChanged(boolean newValue) {
@@ -78,10 +90,16 @@ public class Mapa extends BorderPane {
 			webEngine.executeScript("document.showAirports(" + newValue + ")");
 		}
 	}
-	
+
 	private void onInterseccionesToggleButtonSelectedChanged(boolean newValue) {
 		if (webEngine != null) {
 			webEngine.executeScript("document.showIntersections(" + newValue + ")");
+		}
+	}
+
+	private void onNavaidsToggleButtonSelectedChanged(boolean newValue) {
+		if (webEngine != null) {
+			webEngine.executeScript("document.showNavaids(" + newValue + ")");
 		}
 	}
 
@@ -98,34 +116,66 @@ public class Mapa extends BorderPane {
 			webEngine.executeScript("document.zoomOut()");
 		}
 	}
-	
+
 	public void setPuente(Puente puente) {
-		this.puente = puente;
+		if (webEngine != null) {
+			JSObject jso = (JSObject) webEngine.executeScript("window");
+			jso.setMember("java", puente);
+		}
 	}
 
 	public void cargarMapa(Callback<Boolean, ?> callback) {
 		aeropuertosToggleButton.setSelected(false);
 		interseccionesToggleButton.setSelected(false);
 		navaidsToggleButton.setSelected(false);
-		aeroviasToggleButton.setSelected(false);
 
 		WebEngine we = webView.getEngine();
-		we.load(MainApp.class.getResource("web/map.html").toString());
-		webEngine = we;
 		we.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) -> {
 			if (newValue == State.SUCCEEDED) {
-				JSObject jso = (JSObject) we.executeScript("window");
-				jso.setMember("java", puente);
+				webEngine = we;
 			}
 		});
 		if (callback != null) {
 			this.callback = callback;
 			we.getLoadWorker().stateProperty().addListener(changeListener);
 		}
+		we.load(MainApp.class.getResource("web/map.html").toString());
 	}
 
 	public void cargarMapa() {
 		cargarMapa(null);
+	}
+
+	public void establecerRuta(Aeropuerto origen, Collection<Punto> puntos, Aeropuerto destino) {
+		if (webEngine != null) {
+			StringBuilder ruta = new StringBuilder();
+			if (origen != null) {
+				ruta.append(obtenerLatLng(origen) + ",");
+			}
+
+			for (Punto p : puntos) {
+				ruta.append(obtenerLatLng(p) + ",");
+			}
+
+			if (destino != null) {
+				ruta.append(obtenerLatLng(destino));
+			} else {
+				ruta.delete(ruta.length() - 1, ruta.length());
+			}
+
+			webEngine.executeScript("document.setRoute([" + ruta.toString() + "])");
+		}
+	}
+
+	public void limpiarRuta() {
+		if (webEngine != null) {
+			webEngine.executeScript("document.setRoute(0)");
+		}
+	}
+
+	private String obtenerLatLng(Localizable localizable) {
+		Coordenadas c = localizable.getCoordenadas();
+		return "{lat: " + c.getGradosNorte() + ", lng: " + c.getGradosEste() + "}";
 	}
 
 	public void agregarAeropuertos(List<Aeropuerto> aeropuertos) {
@@ -138,7 +188,7 @@ public class Mapa extends BorderPane {
 			}
 		}
 	}
-	
+
 	public void agregarIntersecciones(List<Interseccion> intersecciones) {
 		if (webEngine != null) {
 			for (Interseccion interseccion : intersecciones) {
@@ -147,6 +197,23 @@ public class Mapa extends BorderPane {
 						+ interseccion.getCoordenadas().getGradosEste();
 				webEngine.executeScript("document.addIntersection(" + parametros + ")");
 			}
+		}
+	}
+
+	public void agregarNavaids(List<Navaid> navaids) {
+		if (webEngine != null) {
+			for (Navaid navaid : navaids) {
+				String parametros = "'" + navaid.getIdentificador() + "', '" + navaid.getNombre() + "', '"
+						+ navaid.getTipoNavaid().getTipo() + "', " + navaid.getCoordenadas().getGradosNorte() + ", "
+						+ navaid.getCoordenadas().getGradosEste();
+				webEngine.executeScript("document.addNavaid(" + parametros + ")");
+			}
+		}
+	}
+	
+	public void moverMapa(Coordenadas coor, int zoom) {
+		if (webEngine != null) {
+			webEngine.executeScript("document.goToLocation({lat: " + coor.getGradosNorte() + ", lng: " + coor.getGradosEste() + "}, " + zoom + ")");
 		}
 	}
 

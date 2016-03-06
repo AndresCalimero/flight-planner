@@ -14,14 +14,8 @@
             <ToggleButton fx:id="aeropuertosToggleButton" mnemonicParsing="false" text="Aeropuertos" />
             <ToggleButton fx:id="interseccionesToggleButton" mnemonicParsing="false" text="Intersecciones" />
             <ToggleButton fx:id="navaidsToggleButton" mnemonicParsing="false" text="Navaids" />
-            <ToggleButton fx:id="aeroviasToggleButton" mnemonicParsing="false" text="Aerovias" />
             <Region HBox.Hgrow="always" />
-            <HBox alignment="CENTER" spacing="5.0">
-               <children>
-                  <Label text="Buscar:" />
-                  <TextField fx:id="buscarTextField" />
-               </children>
-            </HBox>
+            <HBox alignment="CENTER" spacing="5.0" />
             <Region HBox.Hgrow="always" />
             <Button mnemonicParsing="false" onAction="#onAumentarZoomButtonActionPerformed" text="Aumentar" />
             <Button mnemonicParsing="false" onAction="#onAlejarZoomButtonActionPerformed" text="Alejar" />

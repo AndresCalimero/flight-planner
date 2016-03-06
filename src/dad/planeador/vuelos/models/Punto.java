@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public abstract class Punto {
+public abstract class Punto implements Localizable {
 	
 	public static final int TIPO_INTERSECCION = 0;
 	public static final int TIPO_NAVAID = 1;

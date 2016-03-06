@@ -33,6 +33,16 @@ public class RutaUtils {
 		return null;
 	}
 	
+	public static Punto obtenerPunto(String punto, Aerovia aerovia) {
+		for (Punto p : aerovia.getPuntos()) {
+			if (p.getIdentificador().equalsIgnoreCase(punto)) {
+				return p;
+			}
+		}
+		
+		return null;
+	}
+	
 	public static boolean aeroviaContienePunto(Aerovia aerovia, Punto punto) {
 		for (Punto p : aerovia.getPuntos()) {
 			if (p.getIdentificador().equalsIgnoreCase(punto.getIdentificador())) {

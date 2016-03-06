@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 
-public class Aeropuerto {
+public class Aeropuerto implements Localizable {
 	
 	private final StringProperty icao = new SimpleStringProperty();
 	private final StringProperty nombre = new SimpleStringProperty();
@@ -63,9 +63,6 @@ public class Aeropuerto {
 		return getIcao();
 	}
 	
-	
-	
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

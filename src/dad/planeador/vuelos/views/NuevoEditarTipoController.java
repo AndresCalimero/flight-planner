@@ -1,7 +1,9 @@
 package dad.planeador.vuelos.views;
 
+import dad.planeador.vuelos.dialogs.ExceptionAlert;
 import dad.planeador.vuelos.models.TipoAvion;
 import dad.planeador.vuelos.services.PlaneadorVuelosService;
+import dad.planeador.vuelos.services.PlaneadorVuelosServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -38,7 +40,18 @@ public class NuevoEditarTipoController extends Controller {
 				tipo = new TipoAvion();
 			}
 			tipo.setTipo(tipoS);
-			PlaneadorVuelosService.guardarTipoAvion(tipo);
+			try {
+				PlaneadorVuelosService.guardarTipoAvion(tipo);
+			} catch (PlaneadorVuelosServiceException e) {
+				ExceptionAlert exAlert = new ExceptionAlert(AlertType.ERROR);
+				exAlert.setTitle("Error al intentar guardar el tipo de avión");
+				exAlert.setHeaderText("Hubo un error al intentar guardar el tipo de avión!");
+				exAlert.setContentText(e.getMessage());
+				exAlert.setExpandableLabelText("El error fue:");
+				exAlert.setException(e);
+				exAlert.initOwner(getStage());
+				exAlert.showAndWait();
+			}
 			getStage().close();
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
